@@ -1,6 +1,7 @@
 <div class="container my-2">
     <div [style.height]="height || defaultHeight">
         <wizard-top-bar (moveToIndex)="moveToIndex($event)" [elements]="elementList"></wizard-top-bar>
+        <h2 class="title text-center mt-4">Step {{currentActive+1}}</h2>
         <div *ngFor="let el of elementList; let i = index;">
             <ng-template *ngIf="el" [ngTemplateOutlet]="getContentByIndex(i)"></ng-template>
         </div>
