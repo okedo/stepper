@@ -1,8 +1,9 @@
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnDestroy, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnDestroy, Output, QueryList, TemplateRef } from '@angular/core';
 import { animationFrameScheduler, interval, Observable, Subscription } from 'rxjs';
+
 import { WizardMove } from '../wizard-navigation.type';
 import { WizardStepComponent } from '../wizard-step/wizard-step.component';
+import { WizardStepInterface } from '../wizard-step-event.model';
 
 @Component({
   selector: 'wizard-main',
@@ -14,7 +15,9 @@ export class WizardComponent implements AfterContentInit, OnDestroy {
   @ContentChildren(WizardStepComponent) public contentChildren!: QueryList<WizardStepComponent>;
   @Input() public showDemo?: boolean;
   @Input() public height?: string;
-  @Input() public showDuration?: number;
+  @Input() public demoDuration?: number;
+
+  @Output() step = new EventEmitter<WizardStepInterface>();
 
   public readonly defaultHeight = '30vh';
 
@@ -51,7 +54,8 @@ export class WizardComponent implements AfterContentInit, OnDestroy {
   }
 
   public move(step: WizardMove, timerMove?: boolean): void {
-    this.setActive(this.currentActive += step, timerMove);
+    const nextStep = this.currentActive + step;
+    this.setActive(nextStep, timerMove);
   }
 
   public moveToIndex(index: number): void {
@@ -63,6 +67,7 @@ export class WizardComponent implements AfterContentInit, OnDestroy {
   }
 
   private setActive(index: number, isTimerMove?: boolean) {
+    this.step.emit({ currentStep: this.currentActive, nextStep: index });
     if (!isTimerMove) {
       // Stop demo in case of manual interaction 
       this.intervalSubscription?.unsubscribe();
@@ -85,7 +90,7 @@ export class WizardComponent implements AfterContentInit, OnDestroy {
   }
 
   private restartDemo(): void {
-    this.demoInterval$ = interval(this.showDuration || this.defaultShowDuration, animationFrameScheduler);
+    this.demoInterval$ = interval(this.demoDuration || this.defaultShowDuration, animationFrameScheduler);
     this.intervalSubscription = this.demoInterval$.subscribe(() => {
       this.changeDetector.detectChanges();
       if (this.hasNext) {

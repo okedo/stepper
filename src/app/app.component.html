@@ -1,5 +1,5 @@
 <div>
-  <wizard-main [showDemo]="true" [showDuration]="1000" height="200px">
+  <wizard-main (step)="onStep($event)" [showDemo]="true" [demoDuration]="1000" height="200px">
     <wizard-step>
       <div>content 1</div>
       <form class="form-group">
