@@ -54,11 +54,15 @@ export class WizardComponent implements AfterContentInit, OnDestroy {
     this.setActive(this.currentActive += step, timerMove);
   }
 
+  public moveToIndex(index: number): void {
+    this.setActive(index);
+  }
+
   public getContentByIndex(id: number): TemplateRef<WizardComponent> {
     return this.contentChildren.get(id)?.content;
   }
 
-  public setActive(index: number, isTimerMove?: boolean) {
+  private setActive(index: number, isTimerMove?: boolean) {
     if (!isTimerMove) {
       // Stop demo in case of manual interaction 
       this.intervalSubscription?.unsubscribe();

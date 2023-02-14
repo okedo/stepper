@@ -1,9 +1,9 @@
 <div class="container my-2">
     <div [style.height]="height || defaultHeight">
-        <wizard-top-bar (moveToIndex)="setActive($event);" [elements]="elementList"></wizard-top-bar>
+        <wizard-top-bar (moveToIndex)="moveToIndex($event)" [elements]="elementList"></wizard-top-bar>
         <div *ngFor="let el of elementList; let i = index;">
             <ng-template *ngIf="el" [ngTemplateOutlet]="getContentByIndex(i)"></ng-template>
         </div>
     </div>
-    <wizard-nav [hasNext]="hasNext" [hasPrev]="hasPrev" (move)="move($event);"></wizard-nav>
+    <wizard-nav [hasNext]="hasNext" [hasPrev]="hasPrev" (move)="move($event)"></wizard-nav>
 </div>
