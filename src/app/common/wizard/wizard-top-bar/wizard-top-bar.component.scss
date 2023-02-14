@@ -1,0 +1,28 @@
+@import "variables";
+
+.container {
+    position: relative;
+
+    hr {
+        position: absolute;
+        z-index: -1;
+        top: 11px;
+        width: 100%;
+        color: $green-main;
+    }
+
+    .element {
+        padding: 6px 14px;
+        border: 2px solid $green-main;
+        border-radius: 36px;
+        color: $green-main;
+        background-color: $white;
+        cursor: pointer;
+    }
+
+    .active {
+        background-color: $green-main;
+        color: $white;
+        cursor: auto;
+    }
+}

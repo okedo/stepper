@@ -1,0 +1,12 @@
+@import "variables";
+
+.btn {
+    margin: 10px;
+    color: $white;
+    background-color: $green-main;
+    border: $green-main;
+
+    &:active {
+        background-color: $green-dark;
+    }
+}

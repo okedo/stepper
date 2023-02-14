@@ -1,0 +1,8 @@
+<div class="container">
+    <hr>
+    <div class="d-flex flex-row justify-content-center">
+        <div (click)="changeStep(i)" [class.active]="active" class="element mx-4 my-2" *ngFor="let active of elements; let i = index;">
+            {{i+1}}
+        </div>
+    </div>
+</div>
