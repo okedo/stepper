@@ -1,12 +1,18 @@
 @import "variables";
 
-.btn {
-    margin: 10px;
-    color: $white;
-    background-color: $green-main;
-    border: $green-main;
 
-    &:active {
-        background-color: $green-dark;
+.wizard-nav {
+    padding-bottom: 20px;
+    border-bottom: $gray-main dashed 1px;
+
+    .btn {
+        margin: 10px;
+        color: $white;
+        background-color: $green-main;
+        border: $green-main;
+
+        &:active {
+            background-color: $green-dark;
+        }
     }
 }
